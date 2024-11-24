@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playlist Detail</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar {
+        background-color: #333;
+        padding: 15px;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        margin: 0 10px;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+
+      .navbar a:hover {
+        background-color: #575757;
+      }
+
+      .playlist-detail-container {
+        width: 80%;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .playlist-detail-container h1 {
+        font-size: 32px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .playlist-detail-container p {
+        font-size: 18px;
+        color: #555;
+        margin: 10px 0;
+      }
+
+      .playlist-detail-container p strong {
+        color: #333;
+      }
+
+      .music-item {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+      }
+
+      .music-item h3 {
+        margin: 0;
+        font-size: 20px;
+        color: #333;
+      }
+
+      .music-item p {
+        font-size: 16px;
+        color: #555;
+      }
+
+      .button-container {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .button-container a {
+        padding: 12px 20px;
+        background-color: #333;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+
+      .button-container a:hover {
+        background-color: #575757;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 네비게이션 바 -->
+    <div class="navbar">
+      <% if (isLoggedIn) { %>
+      <a href="/playlist/make_playlist">플레이리스트 생성</a>
+      <a href="/auth/logout">로그아웃</a>
+      <% } else { %>
+      <a href="/login">로그인</a>
+      <a href="/join">회원가입</a>
+      <% } %>
+    </div>
+
+    <!-- 플레이리스트 세부 정보 표시 -->
+    <div class="playlist-detail-container">
+      <h1><%= playlist.playlist_name %> - 상세 정보</h1>
+      <p><strong>설명:</strong> <%= playlist.playlist_description%></p>
+      <p><strong>생성 날짜:</strong> <%= playlist.playlist_created_at %></p>
+
+      <!-- 플레이리스트에 포함된 음악 목록 -->
+      <h2>음악 목록</h2>
+      <% musicList.forEach((music) => { %>
+      <div class="music-item">
+        <h3><%= music.title %></h3>
+        <p><strong>Artist:</strong> <%= music.artist %></p>
+        <p><strong>Genre:</strong> <%= music.genre || 'N/A' %></p>
+        <p><strong>Album:</strong> <%= music.albumName || 'N/A' %></p>
+        <p><strong>추천수:</strong> <%= music.recommendation || 0 %></p>
+        <p><strong>총 재생수:</strong> <%= music.total_play_count || 0 %></p>
+
+        <!-- 음악 파일 재생 -->
+        <% if (music.file_path) { %>
+        <audio
+          class="audio-player"
+          data-music-id="<%= music.music_id %>"
+          controls
+        >
+          <source
+            src="<%= `/static/${music.file_path.split('/').pop()}` %>"
+            type="audio/mp3"
+          />
+        </audio>
+        <a
+          href="/playlist/delete_detail?music_id=<%= music.music_id %>&playlist_id=<%= playlist.playlist_id %>"
+          class="details-link"
+          >삭제</a
+        >
+
+        <% } else { %>
+        <p>Audio file not available.</p>
+        <% } %>
+      </div>
+      <% }) %>
+
+      <!-- 돌아가기 버튼 -->
+      <div class="button-container">
+        <a href="/">목록으로 돌아가기</a>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // 모든 음악의 audio player에 대한 이벤트 리스너 추가
+        const audioPlayers = document.querySelectorAll(".audio-player");
+
+        audioPlayers.forEach((audioPlayer) => {
+          audioPlayer.addEventListener("ended", function () {
+            alert("음악이 끝났습니다!");
+            console.log("음악이 끝났습니다!");
+
+            const musicId = audioPlayer.getAttribute("data-music-id");
+
+            // fetch를 사용하여 POST 요청 보내기
+            fetch("/music/end", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json", // JSON 데이터를 보낼 때
+              },
+              body: JSON.stringify({
+                music_id: musicId, // 음악 ID (DB에서 가져온 값)
+              }),
+            })
+              .then((response) => response.json()) // 응답을 JSON으로 받기
+              .then((data) => {
+                console.log("음악 종료 후 처리:", data);
+                // 여기에서 추가적인 동작을 할 수 있습니다 (예: 알림 표시 등)
+              })
+              .catch((error) => {
+                console.error("오류 발생:", error);
+              });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

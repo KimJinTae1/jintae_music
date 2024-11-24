@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js Test</title>
+</head>
+<body>
+    <h1>Node.js Test</h1>
+    <div>
+        <form action="/playlist/create" method="post">
+            <input type="text" name="playlist_name" placeholder="플레이리스트 이름">
+            <input type="text" name="playlist_description" placeholder="설명">
+            <!-- <input type="" name="is_open" placeholder="허용여부"> -->
+            <!-- <input type="text" name="maker_id" placeholder="생성자"> -->
+            <input type="checkbox" name="is_open" value="0">비공개
+            <input type="hidden" name="maker_id" value="<%= user.UID %>">
+            <P><input type="submit" , value="생성"></P>
+        </form>
+        <div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+    <style>
+      /* 전체 페이지 스타일 */
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f3f4f6;
+      }
+
+      /* 카드 스타일 */
+      .join-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 400px;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        position: relative;
+        margin-top: 60px;
+      }
+
+      /* 고양이 이미지 스타일 */
+      .cat-image {
+        width: 100px;
+        position: absolute;
+        top: -50px; /* 카드 위에 고양이가 걸터앉은 모습 */
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      h1 {
+        margin-top: 30px;
+        color: #333;
+      }
+
+      /* 입력 필드 스타일 */
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+
+      /* 버튼 스타일 */
+      input[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="join-container">
+      <h1>회원가입</h1>
+      <form action="/auth/join" method="post">
+        <p><input type="text" name="id" placeholder="아이디" /></p>
+        <p><input type="password" name="password" placeholder="비밀번호" /></p>
+        <p><input type="text" name="user_name" placeholder="이름" /></p>
+        <p><input type="submit" value="회원가입" /></p>
+      </form>
+    </div>
+  </body>
+</html>

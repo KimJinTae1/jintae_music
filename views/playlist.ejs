@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Play List</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* 네비게이션 바 */
+      .navbar {
+        background-color: #333;
+        padding: 15px;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        margin: 0 10px;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+
+      .navbar a:hover {
+        background-color: #575757;
+      }
+
+      /* 음악 리스트 컨테이너 */
+      .music-list-container {
+        width: 80%;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .music-list-container h1 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      /* 플레이리스트 항목 스타일 */
+      .playlist-item {
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+      }
+
+      .playlist-item:hover {
+        background-color: #f9f9f9;
+      }
+
+      .playlist-item h2 {
+        margin: 0;
+        font-size: 20px;
+        color: #333;
+      }
+
+      .playlist-item p {
+        font-size: 16px;
+        color: #555;
+        margin: 10px 0;
+      }
+
+      .playlist-item .details-link {
+        text-decoration: none;
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+
+      .playlist-item .details-link:hover {
+        background-color: #575757;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 네비게이션 바 -->
+    <div class="navbar">
+      <% if (isLoggedIn) { %>
+      <a href="/playlist/make_playlist">플레이리스트 생성</a>
+      <a href="/auth/logout">로그아웃</a>
+      <% } else { %>
+      <a href="/login">로그인</a>
+      <a href="/join">회원가입</a>
+      <% } %>
+    </div>
+
+    <!-- 음악 리스트와 버튼들 -->
+    <div class="music-list-container">
+      <h1>My Playlist List</h1>
+
+      <% playlistInfo.forEach((pl) => { %>
+      <!-- 플레이리스트 관련 정보 -->
+      <div class="playlist-item">
+        <h2><%= pl.playlist_name %></h2>
+        <p><%= pl.playlist_description %></p>
+        <p>생성날짜: <%= pl.playlist_created_at %></p>
+
+        <!-- 세부정보 링크 -->
+        <a
+          href="/playlist/detail?playlist_id=<%= pl.playlist_id %>"
+          class="details-link"
+          >세부 정보</a
+        >
+      </div>
+      <% }) %>
+    </div>
+  </body>
+</html>

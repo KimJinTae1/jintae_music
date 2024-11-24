@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Users</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 20px;
+      }
+      .users-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .user {
+        background-color: #fff;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+      .user-name {
+        font-weight: bold;
+        color: #333;
+      }
+      .user-date {
+        color: #888;
+        font-size: 0.9em;
+        margin-top: 5px;
+      }
+      .user-details {
+        margin-top: 10px;
+        color: #555;
+      }
+      .delete-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .delete-btn:hover {
+        background-color: #d32f2f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="users-container">
+      <h1>All Users</h1>
+      <% if (users) { %> <% users.forEach(function(user) { %>
+      <div class="user">
+        <div class="user-name"><%= user.user_name %></div>
+        <div class="user-date">
+          <%= new Date(user.created_at).toLocaleString() %>
+        </div>
+        <div class="user-details">Reported: <%= user.reported %> times</div>
+        <div class="user-details">
+          Blocked: <%= user.is_banned ? 'Yes' : 'No' %>
+        </div>
+        <% if (user.is_banned) { %>
+        <div class="user-details">This user has been banned.</div>
+        <% } else { %>
+        <form action="/admin/blockUser" method="post">
+          <input type="hidden" name="user_id" value="<%= user.UID %>" />
+          <button type="submit" class="delete-btn">Block User</button>
+        </form>
+        <% } %>
+      </div>
+      <% }); %> <% } else { %>
+      <p>No users found.</p>
+      <% } %>
+    </div>
+  </body>
+</html>

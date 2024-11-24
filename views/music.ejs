@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노래 업로드</title>
+</head>
+<body>
+    <h1>노래 업로드</h1>
+    <div>
+        <form action="/music/create" method="post" enctype="multipart/form-data">
+            <input type="text" name="title" placeholder="제목">
+            <input type="text" name="composer" placeholder="작곡가">
+            <input type="text" name="albumName" placeholder="앨범">
+            <input type="text" name="artist" placeholder="가수">
+            <input type="text" name="lyrics" placeholder="가사">
+            <!-- <input type="text" name="file_path" placeholder="파일경로"> -->
+            <!-- <input type="text" name="make_admin_id" placeholder="생성자"> -->
+            <input type="hidden" name="make_admin_id" value="<%=user.UID%>">
+            <input type="text" name="genre" placeholder="장르(콤마로 구분)">
+            <br>
+            <input type="file" name="sing" />
+            <P><input type="submit" , value="생성"></P>
+        </form>
+        <div>
+</body>
+</html>

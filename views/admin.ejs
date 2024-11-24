@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+      }
+      .admin-panel {
+        text-align: center;
+      }
+      .admin-panel h1 {
+        margin-bottom: 20px;
+      }
+      .admin-button {
+        display: block;
+        width: 200px;
+        padding: 10px;
+        margin: 10px auto;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #4caf50;
+        color: white;
+        transition: background-color 0.3s;
+      }
+      .admin-button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-panel">
+      <h1>Admin Panel</h1>
+      <button class="admin-button" onclick="window.location.href='/music'">
+        음악 추가
+      </button>
+      <button
+        class="admin-button"
+        onclick="window.location.href='/admin/delete_music'"
+      >
+        음악 삭제
+      </button>
+      <button
+        class="admin-button"
+        onclick="window.location.href='/admin/manage_comments'"
+      >
+        댓글 관리
+      </button>
+      <button
+        class="admin-button"
+        onclick="window.location.href='/admin/manage_users'"
+      >
+        사용자 관리
+      </button>
+      <button
+        class="admin-button"
+        onclick="window.location.href='/admin/update_pc'"
+      >
+        조회수 초기화
+      </button>
+    </div>
+  </body>
+</html>
