@@ -10,7 +10,7 @@ const Music = require("./models/music");
 const admin = require("./router/admin");
 const path = require("path");
 
-//바디 잘 묶어서 보내주는놈
+//바디 잘 묶어서 보내줌
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");

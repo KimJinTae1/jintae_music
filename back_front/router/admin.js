@@ -101,15 +101,19 @@ router.get("/delete_music", async (req, res) => {
 
     // 절대경로에서 'uploads/' 부분을 잘라내어 상대경로를 사용
     const filePath = music.file_path; // file_path가 절대경로라고 가정
-    const relativePath = filePath.replace(
-      path.join(process.cwd(), "uploads"),
-      ""
-    ); // 'uploads' 폴더를 제외한 부분 추출
+    //filePath 에서 마지막 파일이름만 추출
+    filePath.split("/");
+    const fileName = filePath.split("/").pop();
 
-    console.log("음악 파일 상대경로:", relativePath);
+    // const relativePath = filePath.replace(
+    //   path.join(process.cwd(), "uploads"),
+    //   ""
+    // ); // 'uploads' 폴더를 제외한 부분 추출
+
+    console.log("음악 파일 상대경로:", fileName);
 
     // 파일 시스템에서 파일 삭제
-    const fullFilePath = path.join(process.cwd(), "uploads", relativePath); // 절대경로로 결합
+    const fullFilePath = path.join(process.cwd(), "uploads", fileName); // 절대경로로 결합
     fs.unlink(fullFilePath, (err) => {
       if (err) {
         console.error("파일 삭제 중 오류 발생:", err);
