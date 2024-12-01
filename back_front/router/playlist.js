@@ -19,19 +19,21 @@ router.get("/", async (req, res) => {
     const playlistInfo = await Playlist.findAll({
       where: { is_open: 1 },
     });
+    const title = "다른 사람들의 플레이리스트";
 
-    return res.render("playlist.ejs", { isLoggedIn, playlistInfo });
+    return res.render("playlist.ejs", { isLoggedIn, playlistInfo, title });
   }
   passport.session();
   if (req.user.UID != UID) {
     return res.redirect("/");
   }
+  const title = "My Playlist List";
   const playlistInfo = await playlistController.getPlaylistByUserId(
     req,
     res,
     UID
   );
-  res.render("playlist.ejs", { isLoggedIn, playlistInfo });
+  res.render("playlist.ejs", { isLoggedIn, playlistInfo, title });
 });
 
 router.get("/detail", async (req, res) => {

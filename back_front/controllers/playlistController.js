@@ -28,7 +28,7 @@ exports.createPlaylist = async (req, res) => {
 exports.getPlaylistByUserId = async (req, res, UID) => {
   try {
     const playlistInfo = await playlist.findAll({
-      where: { maker_id: UID, is_open: true },
+      where: { maker_id: UID },
     });
     return playlistInfo;
   } catch (error) {

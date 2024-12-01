@@ -42,7 +42,6 @@ app.listen(3000, function () {
 });
 
 const post = require("./router/routs");
-const joinRouter = require("./router/auth");
 const auth = require("./router/auth");
 const music = require("./router/music");
 const playlist = require("./router/playlist");

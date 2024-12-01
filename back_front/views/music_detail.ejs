@@ -136,12 +136,10 @@
     <div class="music-details-container">
       <h1><%= music.title %> - 상세 정보</h1>
       <p><strong>Artist:</strong> <%= music.artist %></p>
-      <p><strong>Genre:</strong> <%= music.genre || 'N/A' %></p>
+      <p><strong>Genre:</strong> <%= genreString || 'N/A' %></p>
       <p><strong>Album:</strong> <%= music.albumName || 'N/A' %></p>
       <p><strong>Composer:</strong> <%= music.composer || 'N/A' %></p>
       <p><strong>Lyrics:</strong> <%= music.lyrics || 'N/A' %></p>
-      <p><strong>File Path:</strong> <%= music.file_path || 'N/A' %></p>
-      <p><strong>Created By:</strong> <%= music.make_admin_id || 'N/A' %></p>
 
       <!-- 음악 파일 재생 -->
       <% if (music.file_path) { %>

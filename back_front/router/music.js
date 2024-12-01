@@ -9,6 +9,7 @@ const Comment = require("../models/comment");
 const User = require("../models/user");
 const upload = require("../middlewares/upload"); // multer 설정 파일
 const passport = require("passport");
+const Gerne = require("../models/genre");
 
 // router.use(isLoggedIn);
 
@@ -53,7 +54,20 @@ router.get("/detail", async (req, res) => {
         },
       ],
     });
-    console.log("comments:", comments);
+
+    const genres = await Gerne.findAll({
+      where: {
+        music_id: musicId,
+      },
+    });
+
+    //장르를 하나의 string 으로 합치기
+    let genreString = "";
+    genres.forEach((genre) => {
+      genreString += genre.genre_name + " ";
+    });
+
+    // console.log("comments:", comments);
     // const commentInfo = console.log("playlistInfo:", playlistInfo);
     // console.log("comments:", comments);
     // console.log("comments[0].user : ", comments[0].user);
@@ -63,6 +77,7 @@ router.get("/detail", async (req, res) => {
       playlistInfo,
       comments,
       user_id,
+      genreString,
     });
   } catch (error) {
     console.error("Error fetching music by ID:", error);

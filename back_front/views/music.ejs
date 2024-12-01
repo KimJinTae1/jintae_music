@@ -1,28 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>노래 업로드</title>
-</head>
-<body>
-    <h1>노래 업로드</h1>
-    <div>
-        <form action="/music/create" method="post" enctype="multipart/form-data">
-            <input type="text" name="title" placeholder="제목">
-            <input type="text" name="composer" placeholder="작곡가">
-            <input type="text" name="albumName" placeholder="앨범">
-            <input type="text" name="artist" placeholder="가수">
-            <input type="text" name="lyrics" placeholder="가사">
-            <!-- <input type="text" name="file_path" placeholder="파일경로"> -->
-            <!-- <input type="text" name="make_admin_id" placeholder="생성자"> -->
-            <input type="hidden" name="make_admin_id" value="<%=user.UID%>">
-            <input type="text" name="genre" placeholder="장르(콤마로 구분)">
-            <br>
-            <input type="file" name="sing" />
-            <P><input type="submit" , value="생성"></P>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+        color: #333;
+      }
+      header {
+        background-color: #4caf50;
+        color: white;
+        padding: 1rem 2rem;
+        text-align: center;
+      }
+      h1 {
+        margin: 0;
+      }
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+      }
+      .form-container {
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 2rem;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      input[type="text"],
+      input[type="file"] {
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+      }
+      input[type="file"] {
+        padding: 0.3rem;
+      }
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 0.7rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      input[type="submit"]:hover {
+        background-color: #40aa44;
+      }
+      label {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>노래 업로드</h1>
+    </header>
+    <main>
+      <div class="form-container">
+        <form
+          action="/music/create"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <input type="text" name="title" placeholder="제목" required />
+          <input type="text" name="composer" placeholder="작곡가" required />
+          <input type="text" name="albumName" placeholder="앨범" />
+          <input type="text" name="artist" placeholder="가수" required />
+          <input type="text" name="lyrics" placeholder="가사" />
+          <input
+            type="text"
+            name="genre"
+            placeholder="장르(콤마로 구분)"
+            required
+          />
+          <input type="hidden" name="make_admin_id" value="<%=user.UID%>" />
+          <label for="sing">노래 파일 선택:</label>
+          <input type="file" name="sing" id="sing" required />
+          <input type="submit" value="업로드" />
         </form>
-        <div>
-</body>
+      </div>
+    </main>
+  </body>
 </html>

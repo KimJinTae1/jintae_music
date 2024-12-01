@@ -1,23 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Node.js Test</title>
-</head>
-<body>
-    <h1>Node.js Test</h1>
-    <div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>플레이리스트 생성</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+        color: #333;
+      }
+      header {
+        background-color: #333;
+        color: white;
+        padding: 1rem 2rem;
+        text-align: center;
+      }
+      h1 {
+        margin: 0;
+      }
+      main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+      }
+      .form-container {
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 2rem;
+        border-radius: 8px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      input[type="text"],
+      input[type="checkbox"] {
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+      }
+      input[type="checkbox"] {
+        width: auto;
+        margin-right: 0.5rem;
+      }
+      label {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 0.7rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>플레이리스트 생성</h1>
+    </header>
+    <main>
+      <div class="form-container">
         <form action="/playlist/create" method="post">
-            <input type="text" name="playlist_name" placeholder="플레이리스트 이름">
-            <input type="text" name="playlist_description" placeholder="설명">
-            <!-- <input type="" name="is_open" placeholder="허용여부"> -->
-            <!-- <input type="text" name="maker_id" placeholder="생성자"> -->
-            <input type="checkbox" name="is_open" value="0">비공개
-            <input type="hidden" name="maker_id" value="<%= user.UID %>">
-            <P><input type="submit" , value="생성"></P>
+          <input
+            type="text"
+            name="playlist_name"
+            placeholder="플레이리스트 이름"
+            required
+          />
+          <input
+            type="text"
+            name="playlist_description"
+            placeholder="설명"
+            required
+          />
+          <label>
+            <input type="checkbox" name="is_open" value="0" /> 비공개
+          </label>
+          <input type="hidden" name="maker_id" value="<%= user.UID %>" />
+          <input type="submit" value="생성" />
         </form>
-        <div>
-</body>
+      </div>
+    </main>
+  </body>
 </html>
