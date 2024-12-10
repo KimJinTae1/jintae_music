@@ -39,11 +39,17 @@ router.get("/", async (req, res) => {
 router.get("/detail", async (req, res) => {
   const isLoggedIn = req.isAuthenticated();
   const playlist_id = req.query.playlist_id;
+  let is_master = true;
+  passport.session();
   const playlist = await playlistController.getPlaylistByPlaylistId(
     req,
     res,
     playlist_id
   );
+
+  if (req.user.UID != playlist.maker_id) {
+    is_master = false;
+  }
   //playlistset 에서 playlist_id에 해당하는 music_id를 가져와서 music 테이블에서 가져오기
   const playlistSet = await PlaylistSet.findAll({
     where: { playlist_id: playlist_id },
@@ -54,7 +60,12 @@ router.get("/detail", async (req, res) => {
     const music = await Music.findOne({ where: { music_id } });
     musicList.push(music);
   }
-  res.render("playlist_detail.ejs", { isLoggedIn, playlist, musicList });
+  res.render("playlist_detail.ejs", {
+    isLoggedIn,
+    playlist,
+    musicList,
+    is_master,
+  });
 });
 
 router.get("/make_playlist", async (req, res) => {

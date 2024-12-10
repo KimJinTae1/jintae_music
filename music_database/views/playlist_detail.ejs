@@ -124,11 +124,6 @@
       <% musicList.forEach((music) => { %>
       <div class="music-item">
         <h3><%= music.title %></h3>
-        <p><strong>Artist:</strong> <%= music.artist %></p>
-        <p><strong>Genre:</strong> <%= music.genre || 'N/A' %></p>
-        <p><strong>Album:</strong> <%= music.albumName || 'N/A' %></p>
-        <p><strong>추천수:</strong> <%= music.recommendation || 0 %></p>
-        <p><strong>총 재생수:</strong> <%= music.total_play_count || 0 %></p>
 
         <!-- 음악 파일 재생 -->
         <% if (music.file_path) { %>
@@ -153,12 +148,14 @@
       <div class="button-container">
         <a href="/">목록으로 돌아가기</a>
       </div>
+      <%if(is_master){%>
       <div class="button-container">
         <a
           href="/playlist/delete_playlist_deteil?playlist_id=<%=playlist.playlist_id%>"
           >수정</a
         >
       </div>
+      <%}%>
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
